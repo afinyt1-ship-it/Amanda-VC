@@ -1,9 +1,6 @@
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlOa4LiXwAyp2-anJnJyowu92Bsb4KLsjTFGpummhc9X_b87JJQBwbj2VlfNft9h0p/exec";
 
-// Ambil stok dari LocalStorage browser. Jika belum ada, set awal = 20
-let currentStock = localStorage.getItem('ticket_stock') 
-  ? parseInt(localStorage.getItem('ticket_stock')) 
-  : 20;
+let currentStock = 0;
 
 const stockDisplay = document.getElementById('ticket-stock');
 const ticketForm = document.getElementById('ticket-form');
@@ -11,7 +8,22 @@ const qtySelect = document.getElementById('qty');
 const submitBtn = document.getElementById('submit-btn');
 const statusMessage = document.getElementById('status-message');
 
-// Update Tampilan Stok di Web
+// Ambil stok paling update dari server Google Sheets
+function fetchLatestStock() {
+  stockDisplay.textContent = "...";
+
+  fetch(GOOGLE_SCRIPT_URL)
+    .then(response => response.json())
+    .then(data => {
+      currentStock = data.stock;
+      updateStockUI();
+    })
+    .catch(err => {
+      console.error("Gagal mengambil stok:", err);
+      stockDisplay.textContent = "Error";
+    });
+}
+
 function updateStockUI() {
   stockDisplay.textContent = currentStock;
 
@@ -32,7 +44,6 @@ ticketForm.addEventListener('submit', function (e) {
 
   const requestedQty = parseInt(qtySelect.value);
 
-  // Validasi stok
   if (requestedQty > currentStock) {
     showMessage(`Gagal! Sisa tiket hanya ${currentStock}.`, 'error');
     return;
@@ -49,7 +60,6 @@ ticketForm.addEventListener('submit', function (e) {
   submitBtn.disabled = true;
   submitBtn.textContent = "Mengirim Data...";
 
-  // Kirim data pembeli ke Google Sheets
   fetch(GOOGLE_SCRIPT_URL, {
     method: 'POST',
     mode: 'no-cors',
@@ -59,19 +69,16 @@ ticketForm.addEventListener('submit', function (e) {
     body: JSON.stringify(formData)
   })
   .then(() => {
-    // Kurangi stok dan simpan permanen di browser
-    currentStock -= requestedQty;
-    localStorage.setItem('ticket_stock', currentStock);
-    
-    updateStockUI();
-
-    showMessage(`Berhasil! ${requestedQty} tiket berhasil dipesan. Data tersimpan di Google Sheets.`, 'success');
+    showMessage(`Berhasil! ${requestedQty} tiket berhasil dipesan.`, 'success');
     ticketForm.reset();
+
+    // Beri jeda 1.5 detik lalu update angka stok terbaru dari Google Sheets
+    setTimeout(fetchLatestStock, 1500);
   })
   .catch(error => {
     console.error('Error:', error);
     showMessage('Terjadi kesalahan saat mengirim data. Coba lagi.', 'error');
-    updateStockUI();
+    fetchLatestStock();
   });
 });
 
@@ -80,5 +87,5 @@ function showMessage(msg, type) {
   statusMessage.className = `message ${type}`;
 }
 
-// Langsung tampilkan stok saat halaman dibuka
-updateStockUI();
+// Panggil stok saat web dibuka
+fetchLatestStock();
