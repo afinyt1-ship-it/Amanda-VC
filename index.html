@@ -3,55 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>War Tiket Video Call Artis</title>
+  <title>VC With Amanda</title>
+  <!-- Google Fonts: Bungee (Judul Fun) & Fredoka (Teks Fun) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
-    <div class="card">
-      <h2>🎟️ War Tiket 1-on-1 Video Call</h2>
-      <p class="subtitle">Eksklusif! Ngobrol langsung dengan artis favoritmu.</p>
+  <!-- PAGE 1: LANDING PAGE -->
+  <div id="page-landing" class="page active">
+    <!-- Sunburst Background Layer -->
+    <div class="sunburst"></div>
+    
+    <div class="landing-content">
+      <h1 class="landing-title">VC WITH AMANDA</h1>
+      <p class="landing-date">18 September 2026</p>
+      <button id="btn-to-form" class="btn-landing">BELI TIKET</button>
+    </div>
+  </div>
 
-      <!-- Informasi Sisa Tiket -->
-      <div class="stock-box">
-        <span>Sisa Tiket:</span>
-        <strong id="ticket-stock">20</strong>
+  <!-- PAGE 2: FORM PEMBELIAN -->
+  <div id="page-form" class="page">
+    <div class="container">
+      <div class="card">
+        <h2 class="form-title">FORM PEMESANAN</h2>
+        
+        <!-- Sisa Stok -->
+        <div class="stock-box">
+          <span>SISA TIKET:</span>
+          <strong id="ticket-stock">...</strong>
+        </div>
+
+        <!-- Form Input -->
+        <form id="ticket-form">
+          <div class="form-group">
+            <label for="name">Nama Lengkap</label>
+            <input type="text" id="name" required placeholder="Masukkan nama lengkap">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required placeholder="nama@email.com">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Nomor WhatsApp</label>
+            <input type="tel" id="phone" required placeholder="08123456789">
+          </div>
+
+          <div class="form-group">
+            <label for="discord">Username Discord</label>
+            <input type="text" id="discord" required placeholder="Usernamenya">
+          </div>
+
+          <div class="form-group">
+            <label for="session">SESI</label>
+            <select id="session" required>
+              <option value="Sesi 1">Sesi 1</option>
+              <option value="Sesi 2">Sesi 2</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="qty">Jumlah Tiket (Maks. 5)</label>
+            <select id="qty" required>
+              <option value="1">1 Tiket</option>
+              <option value="2">2 Tiket</option>
+              <option value="3">3 Tiket</option>
+              <option value="4">4 Tiket</option>
+              <option value="5">5 Tiket</option>
+            </select>
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn">Beli Tiket Sekarang</button>
+        </form>
+
+        <div id="status-message" class="message hidden"></div>
       </div>
-
-      <!-- Form Pembelian -->
-      <form id="ticket-form">
-        <div class="form-group">
-          <label for="name">Nama Lengkap</label>
-          <input type="text" id="name" required placeholder="Masukkan nama lengkap">
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" required placeholder="nama@email.com">
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Nomor WhatsApp</label>
-          <input type="tel" id="phone" required placeholder="08123456789">
-        </div>
-
-        <div class="form-group">
-          <label for="qty">Jumlah Tiket (Maks. 5)</label>
-          <select id="qty" required>
-            <option value="1">1 Tiket</option>
-            <option value="2">2 Tiket</option>
-            <option value="3">3 Tiket</option>
-            <option value="4">4 Tiket</option>
-            <option value="5">5 Tiket</option>
-          </select>
-        </div>
-
-        <button type="submit" id="submit-btn" class="btn">Beli Tiket Sekarang</button>
-      </form>
-
-      <!-- Pesan Status -->
-      <div id="status-message" class="message hidden"></div>
     </div>
   </div>
 
