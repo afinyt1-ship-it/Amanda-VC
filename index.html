@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>War Tiket Video Call Artis</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <h2>🎟️ War Tiket 1-on-1 Video Call</h2>
+      <p class="subtitle">Eksklusif! Ngobrol langsung dengan artis favoritmu.</p>
+
+      <!-- Informasi Sisa Tiket -->
+      <div class="stock-box">
+        <span>Sisa Tiket:</span>
+        <strong id="ticket-stock">20</strong>
+      </div>
+
+      <!-- Form Pembelian -->
+      <form id="ticket-form">
+        <div class="form-group">
+          <label for="name">Nama Lengkap</label>
+          <input type="text" id="name" required placeholder="Masukkan nama lengkap">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required placeholder="nama@email.com">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Nomor WhatsApp</label>
+          <input type="tel" id="phone" required placeholder="08123456789">
+        </div>
+
+        <div class="form-group">
+          <label for="qty">Jumlah Tiket (Maks. 5)</label>
+          <select id="qty" required>
+            <option value="1">1 Tiket</option>
+            <option value="2">2 Tiket</option>
+            <option value="3">3 Tiket</option>
+            <option value="4">4 Tiket</option>
+            <option value="5">5 Tiket</option>
+          </select>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn">Beli Tiket Sekarang</button>
+      </form>
+
+      <!-- Pesan Status -->
+      <div id="status-message" class="message hidden"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
